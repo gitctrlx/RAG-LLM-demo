@@ -1,0 +1,468 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\section{基于LlamaIndex/LangChain构建的RAG-ChatGLM大模型知识库}\label{ux57faux4e8ellamaindexlangchainux6784ux5efaux7684rag-chatglmux5927ux6a21ux578bux77e5ux8bc6ux5e93}
+
+\subsection{检索增强生成
+(RAG)}\label{ux68c0ux7d22ux589eux5f3aux751fux6210-rag}
+
+LLM
+接受过大量数据的培训，但他们没有接受过\textbf{个人定制化}数据的训练。检索增强生成
+(RAG) 通过将您的数据添加到LLM
+已经有权访问的数据中来解决这个问题。您将在本文档中经常看到对 RAG
+的引用。
+
+在 RAG
+中，您的数据已加载并准备好用于查询或``索引''。用户查询作用于索引，索引将数据过滤到最相关的上下文。然后，此上下文和您的查询连同提示一起转到LLM
+，LLM会提供响应。
+
+即使您正在构建的是聊天机器人或代理，您也会想了解将数据导入应用程序的 RAG
+技术。
+
+\includegraphics{C:/Users/14388/Downloads/rag-llm/assets/basic_rag.png}
+
+\subsection{RAG 中的阶段}\label{rag-ux4e2dux7684ux9636ux6bb5}
+
+RAG
+中有五个关键阶段，这将成为您构建的任何大型应用程序的一部分。这些都是：
+
+\begin{itemize}
+\item
+  \textbf{加载}：这是指将数据从其所在位置（无论是文本文件、PDF、其他网站、数据库还是
+  API）获取到您的管道中。\href{https://llamahub.ai/}{LlamaHub}提供数百种连接器可供选择。
+\item
+  \textbf{索引}：这意味着创建一个允许查询数据的数据结构。对于LLM
+  来说，这几乎总是意味着创建\texttt{vector\ embeddings}数据含义的数字表示，以及许多其他元数据策略，以便轻松准确地找到上下文相关的数据。
+\item
+  \textbf{存储}：一旦数据被索引，您几乎总是希望存储索引以及其他元数据，以避免重新索引。
+\item
+  \textbf{查询}：对于任何给定的索引策略，您可以通过多种方式利用 LLM 和
+  LlamaIndex 数据结构进行查询，包括子查询、多步查询和混合策略。
+\item
+  \textbf{评估}：任何管道中的关键步骤是检查它相对于其他策略的有效性，或者何时进行更改。评估提供客观衡量您对查询的答复的准确性、忠实度和速度的程度。
+\end{itemize}
+
+\includegraphics{C:/Users/14388/Downloads/rag-llm/assets/stages.png}
+
+\subsection{每个步骤中的重要概念}\label{ux6bcfux4e2aux6b65ux9aa4ux4e2dux7684ux91cdux8981ux6982ux5ff5}
+
+您还会遇到一些术语，它们指的是每个阶段中的步骤。
+
+\subsubsection{装载阶段}\label{ux88c5ux8f7dux9636ux6bb5}
+
+\textbf{节点和文档}：A\texttt{Document}是任何数据源的容器 - 例如
+PDF、API 输出或从数据库检索数据。 A\texttt{Node}是 LlamaIndex
+中数据的原子单位，表示源的``块''\texttt{Document}。节点具有将它们与它们所在的文档以及其他节点相关联的元数据。
+
+\textbf{连接器}：数据连接器（通常称为
+a\texttt{Reader}）将来自不同数据源和数据格式的数据摄取到\texttt{Documents}和\texttt{Nodes}。
+
+\subsubsection{索引阶段}\label{ux7d22ux5f15ux9636ux6bb5}
+
+\textbf{索引}：获取数据后，LlamaIndex
+将帮助您将数据索引到易于检索的结构中。这通常涉及生成\texttt{vector\ embeddings}存储在称为\texttt{vector\ store}.索引还可以存储有关数据的各种元数据。
+
+\textbf{嵌入}LLM 生成称为
+的数据的数字表示\texttt{embeddings}。在过滤数据的相关性时，LlamaIndex
+会将查询转换为嵌入，并且您的向量存储将查找在数字上与查询的嵌入相似的数据。
+
+\subsubsection{查询阶段}\label{ux67e5ux8be2ux9636ux6bb5}
+
+\textbf{检索器}：检索器定义在给定查询时如何从索引有效检索相关上下文。您的检索策略对于检索数据的相关性和检索效率至关重要。
+
+\textbf{路由器}：路由器确定将使用哪个检索器从知识库中检索相关上下文。更具体地说，该类\texttt{RouterRetriever}
+负责选择一个或多个候选检索器来执行查询。他们使用选择器根据每个候选人的元数据和查询来选择最佳选项。
+
+\textbf{节点后处理器}：节点后处理器接收一组检索到的节点并对它们应用转换、过滤或重新排序逻辑。
+
+\textbf{响应合成器}：响应合成器使用用户查询和给定的一组检索到的文本块从
+LLM 生成响应。
+
+\subsubsection{组合}\label{ux7ec4ux5408}
+
+有数据支持的 LLM 应用程序有无数的用例，但它们可以大致分为三类：
+
+\textbf{查询引擎}：查询引擎是一个端到端管道，允许您对数据提出问题。它接受自然语言查询，并返回响应，以及检索并传递给LLM
+的参考上下文。
+
+\textbf{聊天引擎}：聊天引擎是一个端到端的管道，用于与您的数据进行对话（多次来回而不是单个问答）。
+
+\textbf{代理}：代理是由LLM
+提供支持的自动化决策者，通过一组工具与世界进行交互。代理可以采取任意数量的步骤来完成给定的任务，动态地决定最佳的行动方案，而不是遵循预先确定的步骤。这赋予它额外的灵活性来处理更复杂的任务。
+
+\subsection{核心技术分析}\label{ux6838ux5fc3ux6280ux672fux5206ux6790}
+
+\subsubsection{LlamaIndex pipeline}\label{llamaindex-pipeline}
+
+\textbf{一、载入环节}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  在载入过程中的"document"不是通用的理解的文档，它更是一种``容器''的代指，它可以是API、CSV、PDF、数据库记录等多种形式。在llamaIndex里有一个LlamaHub的组件，作用就是充当多种数据源的连接器，这个组件库也是开源的，现在已经有了不少connector还在持续更新中。
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  document里的主要属性有两个，一个是用来描述document的"metadata"（元数据）,一个是用来描述document与其他document和node关系的relationships。
+\item
+  "node"也不是老IT术语里的``节点''的意思，而是指document中的切分出的一块，我觉得它的同义词应该是``shard''（分片）。
+\end{enumerate}
+
+调用llamaindex载入数据源成为document的基础代码是：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{from llama\_index.core import SimpleDirectoryReader}
+\NormalTok{documents = SimpleDirectoryReader("./包含查询文档的文件夹名称").load\_data()}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{二、建立索引}
+
+通过llama\_index.core的另一个组件VectorStoreIndex来实现，从名字就可以看到，Index是按向量的方式进行存储的。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{from llama\_index.core import VectorStoreIndex}
+\NormalTok{index = VectorStoreIndex.from\_documents(documents)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{三、查询环节}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  llamaindex是通过一个叫``query\_engine"的组件来进行查询的，通过在索引上建立的一个或多个retriever来实现。用户可以在提示中输入自然语言查询。普通查询的代码为：
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{query\_engine = index.as\_query\_engine()}
+\NormalTok{response = query\_engine.query("要搜索的内容")}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  query engine里最重要的组成部分就是retriever,
+  retriever可以被进一步配置完成更加精细化的查询设置。在llamaindex的简化案例中，没有动用retriever，应该采用的就是query
+  engine的默认设置。
+\item
+  查询里还有个离不开的部分是把LLM大模型结合进来，负责LLM的部分在llamaIndex的query
+  engine里叫做``Synthesizer``（合成器)，它登场的时机在node从retriever中被提取出，以及进行完处理转换后。默认情况下不调整synthesizer也能得到LLM参与的结果，但是进行配置后可以得到更佳的结果。
+\end{enumerate}
+
+llama的文档中给了个配置synthesizer的例子，这个response\_mode里的参数``compact"可以把数据块提前压缩，减少对大模型token的调用量，起到节约开销的效果。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ llama\_index.core.data\_structs }\ImportTok{import}\NormalTok{ Node}
+\ImportTok{from}\NormalTok{ llama\_index.core.schema }\ImportTok{import}\NormalTok{ NodeWithScore}
+\ImportTok{from}\NormalTok{ llama\_index.core }\ImportTok{import}\NormalTok{ get\_response\_synthesizer}
+
+\NormalTok{response\_synthesizer }\OperatorTok{=}\NormalTok{ get\_response\_synthesizer(response\_mode}\OperatorTok{=}\StringTok{"compact"}\NormalTok{)}
+
+\NormalTok{response }\OperatorTok{=}\NormalTok{ response\_synthesizer.synthesize(}
+    \StringTok{"query text"}\NormalTok{, nodes}\OperatorTok{=}\NormalTok{[NodeWithScore(node}\OperatorTok{=}\NormalTok{Node(text}\OperatorTok{=}\StringTok{"需搜索的问题"}\NormalTok{), score}\OperatorTok{=}\FloatTok{1.0}\NormalTok{)]}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+我用了llamaIndex教程文档里的示例文章提问，查询问题为``What are the two
+things the author worked on?''采用普通查询模式时，得到的结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{The author worked on writing and programming. }
+\end{Highlighting}
+\end{Shaded}
+
+在采用配置后的synthesizer后，得到的查询结果为：
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{The author worked on developing a new software application and conducting research on the impact of}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Advanced-RAG(高级检索增强生成)}\label{advanced-ragux9ad8ux7ea7ux68c0ux7d22ux589eux5f3aux751fux6210}
+
+\includegraphics{C:/Users/14388/Downloads/rag-llm/assets/18z-QRadKewNmos0J_4TNAQ.png}
+
+\paragraph{检索前优化}\label{ux68c0ux7d22ux524dux4f18ux5316}
+
+检索前优化集中在数据索引优化和查询优化上。数据索引优化技术旨在以有助于提高检索效率的方式存储数据，例如
+{[}1{]}：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  滑动窗口使用片段之间的重叠，是最简单的技术之一。
+\item
+  提高数据粒度应用数据清洗技术，例如删除无关信息、确认事实准确性、更新过时信息等。
+\item
+  添加元数据，如日期、目的或章节，用于过滤目的。
+\item
+  优化索引结构涉及不同的策略来索引数据，例如调整片段大小或使用多索引策略。本文将实现的一项技术是句子窗口检索，它将单个句子嵌入到检索中，并在推断时用更大的文本窗口替换它们。
+\end{enumerate}
+
+\includegraphics{C:/Users/14388/Downloads/rag-llm/assets/1pbU5KBqYWhx0GOeNRMiPoA.png}
+
+此外，检索前技术不仅限于数据索引，还可以涉及推理时的技术，如查询路由、查询重写和查询扩展。
+
+\paragraph{检索优化}\label{ux68c0ux7d22ux4f18ux5316}
+
+检索阶段的目标是确定最相关的上下文。通常，检索基于向量搜索，它计算查询与索引数据之间的语义相似性。因此，大多数检索优化技术都围绕嵌入模型展开
+{[}1{]}：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  微调嵌入模型，将嵌入模型定制为特定领域的上下文，特别是对于术语不断演化或罕见的领域。例如，BAAI/bge-small-en是一个高性能的嵌入模型，可以进行微调（请参阅微调指南）。
+\item
+  动态嵌入根据单词的上下文进行调整，而静态嵌入则为每个单词使用单一向量。例如，OpenAI的embeddings-ada-02是一个复杂的动态嵌入模型，可以捕获上下文理解。{[}1{]}
+\end{enumerate}
+
+除了向量搜索之外，还有其他检索技术，例如混合搜索，通常是指将向量搜索与基于关键字的搜索相结合的概念。如果您的检索需要精确的关键字匹配，则此检索技术非常有益。
+
+\paragraph{检索后优化}\label{ux68c0ux7d22ux540eux4f18ux5316}
+
+\includegraphics{C:/Users/14388/Downloads/rag-llm/assets/1owudWLuoXhqeLjStCsnDiw.png}
+
+对检索到的上下文进行额外处理可以帮助解决一些问题，例如超出上下文窗口限制或引入噪声，从而阻碍对关键信息的关注。在RAG调查中总结的检索后优化技术包括：
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  提示压缩：通过删除无关内容并突出重要上下文，减少整体提示长度。
+\item
+  重新排序：使用机器学习模型重新计算检索到的上下文的相关性得分。
+\end{enumerate}
+
+\paragraph{实现高级RAG代码部分}\label{ux5b9eux73b0ux9ad8ux7ea7ragux4ee3ux7801ux90e8ux5206}
+
+\begin{itemize}
+\item
+  检索前优化：句子窗口检索
+\item
+  检索优化：混合搜索
+\item
+  检索后优化：重新排序
+\end{itemize}
+
+\textbf{索引优化示例：句子窗口检索}
+
+对于句子窗口检索技术，您需要进行两个调整：首先，您必须调整如何存储和后处理您的数据。我们将使用
+SentenceWindowNodeParser，而不是 SimpleNodeParser。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ llama\_index.core.node\_parser }\ImportTok{import}\NormalTok{ SentenceWindowNodeParser}
+
+\NormalTok{node\_parser }\OperatorTok{=}\NormalTok{ SentenceWindowNodeParser.from\_defaults(}
+\NormalTok{    window\_size}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
+\NormalTok{    window\_metadata\_key}\OperatorTok{=}\StringTok{"window"}\NormalTok{,}
+\NormalTok{    original\_text\_metadata\_key}\OperatorTok{=}\StringTok{"original\_text"}\NormalTok{,}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+SentenceWindowNodeParser 做了两件事情：
+
+\begin{itemize}
+\item
+  它将文档分成单个句子，这些句子将被嵌入。
+\item
+  对于每个句子，它创建一个上下文窗口。如果您指定 window\_size =
+  3，则生成的窗口将为三个句子长，从嵌入句子的前一个句子开始，并跨越后一个句子。窗口将存储为元数据。
+\end{itemize}
+
+在检索过程中，返回与查询最接近的句子。检索后，您需要通过定义
+MetadataReplacementPostProcessor
+并在节点后处理器列表中使用它来用元数据替换句子。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ llama\_index.core.postprocessor }\ImportTok{import}\NormalTok{ MetadataReplacementPostProcessor}
+
+\CommentTok{\# The target key defaults to \textasciigrave{}window\textasciigrave{} to match the node\_parser\textquotesingle{}s default}
+\NormalTok{postproc }\OperatorTok{=}\NormalTok{ MetadataReplacementPostProcessor(}
+\NormalTok{    target\_metadata\_key}\OperatorTok{=}\StringTok{"window"}
+\NormalTok{)}
+\NormalTok{...}
+\NormalTok{query\_engine }\OperatorTok{=}\NormalTok{ index.as\_query\_engine( }
+\NormalTok{    node\_postprocessors }\OperatorTok{=}\NormalTok{ [postproc],}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{检索优化示例：混合搜索}
+
+在LlamaIndex中实现混合搜索与两个参数更改相同，如果底层向量数据库支持混合搜索查询的话。alpha
+参数指定向量搜索和基于关键字的搜索之间的加权，其中 alpha = 0
+
+表示基于关键字的搜索，alpha = 1 表示纯向量搜索。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{query\_engine }\OperatorTok{=}\NormalTok{ index.as\_query\_engine(}
+\NormalTok{    ...,}
+\NormalTok{    vector\_store\_query\_mode}\OperatorTok{=}\StringTok{"hybrid"}\NormalTok{, }
+\NormalTok{    alpha}\OperatorTok{=}\FloatTok{0.5}\NormalTok{,}
+\NormalTok{    ...}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{检索后优化示例：重新排序}
+
+将 reranker 添加到您的高级RAG管道中只需要三个简单的步骤：
+
+首先，定义一个重新排序模型。在这里，我们使用来自Hugging Face的
+BAAI/bge-reranker-base。
+在查询引擎中，将重新排序模型添加到节点后处理器列表中。 在查询引擎中增加
+similarity\_top\_k 以检索更多的上下文段落，在重新排序后可以将其减少到
+top\_n。
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# !pip install torch sentence{-}transformers}
+\ImportTok{from}\NormalTok{ llama\_index.core.postprocessor }\ImportTok{import}\NormalTok{ SentenceTransformerRerank}
+
+\CommentTok{\# Define reranker model}
+\NormalTok{rerank }\OperatorTok{=}\NormalTok{ SentenceTransformerRerank(}
+\NormalTok{    top\_n }\OperatorTok{=} \DecValTok{2}\NormalTok{, }
+\NormalTok{    model }\OperatorTok{=} \StringTok{"BAAI/bge{-}reranker{-}base"}
+\NormalTok{)}
+\NormalTok{...}
+\CommentTok{\# Add reranker to query engine}
+\NormalTok{query\_engine }\OperatorTok{=}\NormalTok{ index.as\_query\_engine(}
+\NormalTok{        similarity\_top\_k }\OperatorTok{=} \DecValTok{6}\NormalTok{,}
+\NormalTok{        ...,}
+\NormalTok{                node\_postprocessors }\OperatorTok{=}\NormalTok{ [rerank],}
+\NormalTok{        ...,}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{参考}\label{ux53c2ux8003}
+
+\begin{quote}
+{[}1{]} Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., \ldots{}
+\& Wang, H. (2023). Retrieval-augmented generation for large language
+models: A survey. arXiv preprint arXiv:2312.10997.
+
+{[}2{]}
+\url{https://towardsdatascience.com/advanced-retrieval-augmented-generation-from-theory-to-llamaindex-implementation-4de1464a9930}
+\end{quote}
+
+\end{document}

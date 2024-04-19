@@ -1,0 +1,8 @@
+ctransformers
+gradio
+langchain
+llama-index
+sentence-transformers
+llama-index-embeddings-langchain
+modelscope
+llama_index-postprocessor-cohere_rerank
