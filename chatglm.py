@@ -12,7 +12,7 @@ model.eval()  # Ensuring the model is in evaluation mode
 context_window = 2048
 num_output = 256
 
-class ChatGML(CustomLLM):
+class ChatGLM(CustomLLM):
     @property
     def metadata(self) -> LLMMetadata:
         """Get LLM metadata."""
@@ -38,7 +38,7 @@ class ChatGML(CustomLLM):
 
 # Initialize and test the custom LLM
 if __name__ == "__main__":
-    chat_glm = ChatGML()
+    chat_glm = ChatGLM()
     test_prompt = "Hello, how are you?"
     response = chat_glm.complete(test_prompt)
     print("Generated text:", response.text)
