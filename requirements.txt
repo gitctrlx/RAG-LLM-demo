@@ -6,3 +6,5 @@ sentence-transformers
 llama-index-embeddings-langchain
 modelscope
 llama_index-postprocessor-cohere_rerank
+llama_index_vector_stores_faiss
+torch

@@ -14,7 +14,8 @@ from llama_index.core.node_parser import SentenceWindowNodeParser
 from llama_index.core.postprocessor import MetadataReplacementPostProcessor, SentenceTransformerRerank
 from llama_index.core.response_synthesizers import ResponseMode
 
-from chatglm import ChatGML
+from faiss_vector_storage import FaissEmbeddingStorage
+from llama_index.vector_stores.faiss import FaissVectorStore
 
 # Initialize directories
 PERSIST_DIR = "./storage"
@@ -22,9 +23,9 @@ DATA_DIR = "./dataset"
 os.makedirs(DATA_DIR, exist_ok=True)
 
 # Configuration for Language Models
-# Settings.llm = OpenAI(api_key="", model="gpt-3.5-turbo", temperature=0.1)
-Settings.llm = ChatGML()
-Settings.embed_model = LangchainEmbedding(HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"))
+from chatglm import ChatGLM
+Settings.llm = ChatGLM()
+Settings.embed_model = LangchainEmbedding(HuggingFaceEmbeddings(model_name="maidalun1020/bce-embedding-base_v1"))
 
 # Setup for text processing
 node_parser = SentenceWindowNodeParser.from_defaults(
@@ -33,50 +34,32 @@ node_parser = SentenceWindowNodeParser.from_defaults(
     original_text_metadata_key="original_text"
 )
 postproc = MetadataReplacementPostProcessor(target_metadata_key="window")
-rerank = SentenceTransformerRerank(top_n=2, model="BAAI/bge-reranker-base")
+rerank = SentenceTransformerRerank(top_n=2, model="maidalun1020/bce-reranker-base_v1") # maidalun1020/bce-reranker-base_v1
 
 # Global variable for the query engine
 query_engine = None
 
-def initialize_index(directory):
-    """ Initialize index from a given directory and handle errors properly. """
-    persist_dir = os.path.join(PERSIST_DIR, os.path.basename(directory))
-    os.makedirs(persist_dir, exist_ok=True)
-
-    if not os.listdir(directory):
-        print("No files found in the directory:", directory)
-        return None
-
-    try:
-        documents = SimpleDirectoryReader(directory).load_data()
-        if not documents:
-            raise ValueError("No documents to index.")
-
-        # storage_context = StorageContext.from_defaults(persist_dir=persist_dir)
-        index = VectorStoreIndex.from_documents(documents)
-        # storage_context.clear_persisted()
-        index.storage_context.persist(persist_dir=persist_dir)
-
-        return index.as_query_engine(
-            # streaming=True, 
-            alpha=0.5, 
-            # node_postprocessors=[postproc], 
-            similarity_top_k = 6,
-            node_postprocessors = [rerank],
-            # vector_store_query_mode="hybrid",
-            response_synthesizer_mode=ResponseMode.REFINE)
-    except Exception as e:
-        print(f"[ERROR] Failed to initialize index: {e}")
-        return None
-
 def update_index(folder_name):
-    """ Update the index with the new folder and handle missing folders. """
-    new_data_dir = os.path.join(DATA_DIR, folder_name)
+    """ Update the index with the new folder using Faiss and handle missing folders. """
+    data_dir = os.path.join(DATA_DIR, folder_name)
+    persist_dir = os.path.join(PERSIST_DIR, folder_name)
+    
+    if not os.listdir(data_dir):
+        print("No files found in the directory:", data_dir)
+        return None
+
+    # try:
+    faiss_storage = FaissEmbeddingStorage(data_dir=data_dir, persist_dir=persist_dir)
     global query_engine
-    query_engine = initialize_index(new_data_dir)
+    query_engine = faiss_storage.get_query_engine()
     if query_engine is None:
         print("[ERROR] Initialization of the query engine failed. Please check the logs for more details.")
-
+    else:
+        print("[INFO] Query engine initialized successfully.")
+    # except Exception as e:
+    #     print(f"[ERROR] Failed to initialize index: {e}")
+    #     return None
+    
 def create_folder(folder_name):
     """ Create a new folder for storing documents and initialize index. """
     if not folder_name:
@@ -106,33 +89,36 @@ def upload_files(files, folder_name):
         else:
             duplicate_files.append(filename)
     update_index(folder_name)
-    uploaded_files_msg = "\n[INFO] Files uploaded to: " + ", ".join(file_paths) if file_paths else "No new files uploaded."
-    duplicate_files_msg = "\n[INFO] Duplicate files not uploaded: " + ", ".join(duplicate_files) if duplicate_files else ""
+    uploaded_files_msg = "\n[INFO] Files uploaded to: " + ", \n".join(file_paths) if file_paths else "No new files uploaded."
+    duplicate_files_msg = "\n[INFO] Duplicate files not uploaded: " + ", \n".join(duplicate_files) if duplicate_files else ""
     return uploaded_files_msg + duplicate_files_msg
 
 def folder_changed(folder_name):
     """ Function to be triggered when folder selection changes. """
     try:
         # Construct the storage context from the persist directory
-        storage_context = StorageContext.from_defaults(persist_dir=os.path.join(PERSIST_DIR, folder_name))
+        persist_dir = os.path.join(PERSIST_DIR, folder_name)
+        vector_store = FaissVectorStore.from_persist_dir(persist_dir)
+        storage_context = StorageContext.from_defaults(vector_store=vector_store, persist_dir=persist_dir)
         # Load the index from the existing storage
         index = load_index_from_storage(storage_context)
         global query_engine
         query_engine = index.as_query_engine(
-            # streaming=True, 
+            streaming=True, 
             alpha=0.5, 
             # node_postprocessors=[postproc], 
             similarity_top_k = 6,
             node_postprocessors = [rerank],
             # vector_store_query_mode="hybrid",
-            response_synthesizer_mode=ResponseMode.REFINE)
+            response_synthesizer_mode=ResponseMode.REFINE)  
         if query_engine is None:
             message = "Failed to load index. Please check the storage or logs for more details."
         else:
             message = "Index loaded successfully from storage."
     except Exception as e:
         # Handle exceptions that could occur during index loading
-        message = f"An error occurred while loading the index: {e}"
+        # message = f"An error occurred while loading the index: {e}"
+        message = "[INFO] This is an empty knowledge base, please upload the file first before chatting!"
     return folder_name, message
 
 def get_folders():
@@ -169,4 +155,4 @@ with gr.Blocks() as interface:
             chat = gr.ChatInterface(fn=chatbot_knowledge_base, title="AI Chat", theme="default", fill_height=True)
 
 tabbed_interface = gr.TabbedInterface([interface], ["知识库交流"])
-tabbed_interface.launch(server_name="0.0.0.0", server_port=6006)
+tabbed_interface.launch(server_name="127.0.0.1", server_port=6005)
