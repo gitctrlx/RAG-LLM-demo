@@ -104,7 +104,7 @@ def folder_changed(folder_name):
         index = load_index_from_storage(storage_context)
         global query_engine
         query_engine = index.as_query_engine(
-            streaming=True, 
+            # streaming=True, 
             alpha=0.5, 
             # node_postprocessors=[postproc], 
             similarity_top_k = 6,
